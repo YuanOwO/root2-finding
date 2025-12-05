@@ -1,0 +1,547 @@
+\documentclass[a4paper,  10pt, oneside, fleqn]{article}
+
+\usepackage{amsmath, amssymb, amsthm}    % 美國數學學會
+\usepackage[CheckSingle, CJKmath]{xeCJK} % 中文
+\usepackage{fontspec}                    % 字型配置
+\usepackage{geometry}                    % 版面配置
+\usepackage[nocheck]{fancyhdr}           % 頁首頁尾
+\usepackage{color}                       % 顏色
+\usepackage[x11names]{xcolor}            % 更多顏色
+\usepackage{datetime2}                   % 日期、時間
+\usepackage{listings}                    % 顯示 code 用的
+\usepackage{tikz}                        % 畫圖
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{ulem}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage{xpatch}
+\usepackage{hyperref}                    % 超連結
+% \usepackage{courier}
+% \usepackage[Glenn]{fncychap}           % 排版，頁面模板
+% \usepackage{CJKulem}
+% \usepackage[T1]{fontenc}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setmainfont{NotoSerif}[  % 主要字體
+    Path           = .fonts/Noto_Serif/,
+    Extension      = .ttf,
+    UprightFont    = *-Regular,
+    BoldFont       = *-Bold,
+    ItalicFont     = *-Italic,
+    BoldItalicFont = *-BoldItalic,
+]
+
+\setmonofont{Consolas}[  % 等寬字體
+    Path           = .fonts/Consolas/,
+    Extension      = .ttf,
+    UprightFont    = *-Regular,
+    BoldFont       = *-Bold,
+    ItalicFont     = *-Italic,
+    % BoldItalicFont = *-BoldItalic,
+]
+
+\setCJKmainfont{NotoSerifTC}[  % 中文主要字體
+    Path           = .fonts/Noto_Serif_TC/,
+    Extension      = .ttf,
+    UprightFont    = *-Regular,
+    BoldFont       = *-Bold,
+    ItalicFont     = *-Regular, % 中文沒有斜體
+    BoldItalicFont = *-Bold,    % 中文沒有斜體
+]
+
+\setCJKmonofont{NotoSerifTC}[  % 中文等寬字體
+    Path           = .fonts/Noto_Serif_TC/,
+    Extension      = .ttf,
+    UprightFont    = *-Regular,
+    BoldFont       = *-Bold,
+]
+
+% \setCJKmonofont{LXGWWenKaiMonoTC}[  % 中文等寬字體
+% Path           = .fonts/LXGW_WenKai_Mono_TC/,
+% Extension      = .ttf,
+% UprightFont    = *-Regular,
+% BoldFont       = *-Bold,
+% ]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 彩色模式
+\newcommand{\keywordcolor}{\color{Blue1}}
+\newcommand{\identifiercolor}{\color{black}}
+\newcommand{\commentcolor}{\color{Red4}}
+\newcommand{\stringcolor}{\color{Green4}}
+
+% 黑白模式
+\renewcommand{\keywordcolor}{\color{black}}
+\renewcommand{\identifiercolor}{\color{black}}
+\renewcommand{\commentcolor}{\color{black!70}}
+\renewcommand{\stringcolor}{\color{black!50}}
+
+\makeatletter
+\lst@CCPutMacro\lst@ProcessOther {"2D}{\lst@ttfamily{-{}}{-{}}}
+\@empty\z@\@empty
+\makeatother
+
+\lstset{
+    % language=C++,                         % Code 的語言
+    numbers=none,                           % 行號的位置
+    numberstyle=\footnotesize,              % 行號的字型和大小
+    stepnumber=1,                           % 顯示行號的間隔
+    numbersep=5pt,                          % 行號跟 code 的距離
+    showspaces=false,                       % 顯示空白 (使用特別的底線記號)
+    showtabs=false,                         % 顯示 Tab
+    showstringspaces=false,                 % 顯示字串的空白
+    tabsize=2,                              % Tab 的寬度
+    frame=leftline,                         % adds a frame around the code
+    captionpos=b,                           % sets the caption-position to bottom
+    breaklines=true,                        % sets automatic line breaking
+    breakatwhitespace=false,                % sets if automatic breaks should only happen at whitespace
+    escapeinside={\%*}{*)},                 % if you want to add a comment within your code
+    morekeywords={*},                       % 自訂的 Keywords
+    basicstyle=\footnotesize\ttfamily,      % 基本的字型和大小
+    backgroundcolor=\color{white},          % 背景顏色
+    keywordstyle=\bfseries\keywordcolor,    % Keywords 的字型
+    identifierstyle=\identifiercolor,       % 標示符的字型
+    commentstyle=\itshape\commentcolor,     % 註解的字型
+    stringstyle=\itshape\stringcolor,       % 字串的字型
+}
+
+\newcommand{\inputcpp}[ 1]{\lstinputlisting[language=C++]{#1}}  % 引入 C++
+\newcommand{\inputpy}[ 1]{\lstinputlisting[language=Python]{#1}}     % 引入蟒蛇
+\newcommand{\inputjava}[ 1]{\lstinputlisting[language=Java]{#1}}     % 引入爪哇
+\newcommand{\inputtxt}[ 1]{\lstinputlisting{#1}}                     % 引入文字檔
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\geometry{a4paper}                           % 頁面 A4 大小
+% \geometry{includehead}  % 內文區塊包含頁首，沒有頁尾、旁注
+\geometry{headsep=5mm}                       % 頁首和內文的距離
+\geometry{vmargin=1in, hmargin=1in}    % 垂直、水平邊界
+
+\setlength{\columnsep}{3mm}                  % 兩欄模式的間距
+\setlength{\columnseprule}{0pt}              % 兩欄模式間格線粗細
+
+% \titlespacing{\section}{0cm}{24pt}{6pt}
+% \titlespacing{\subsection}{0cm}{0cm}{0cm}
+
+\setcounter{secnumdepth}{3}                  % 目錄顯示第三層
+
+\XeTeXlinebreaklocale "zh"                   % 中文自動換行
+\XeTeXlinebreakskip = 0pt plus 1pt           % 設定段落之間的距離
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\hypersetup{
+    colorlinks=true,         % 啟用顏色連結
+    linkcolor=red,           % 內部連結顏色
+    filecolor=green,         % 檔案連結顏色
+    urlcolor=blue,           % 網址顏色
+    pdfborder={0 0 1}        % 設定邊框樣式（0 0 1 表示只有底部有邊框）
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\allowdisplaybreaks                     % 允許跨頁的多行公式
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\pagestyle{fancy}
+
+%%%%%%%%%%
+
+% 有序列表樣式
+% \renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}.}
+% \renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}
+% \renewcommand{\labelenumiv}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic{enumiv}.}
+
+%%%%%%%%%%
+
+% 目錄
+% \renewcommand{\contentsname}{Contents}
+% \scriptsize
+% \begin{multicols}{2}
+%     \tableofcontents
+% \end{multicols}
+
+%%%%%%%%%%
+
+% 頁首、頁尾
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyhead[L]{Homework 1,  2D Root-finding using Newton's Method}
+\fancyhead[R]{黃俊源 01257128}
+\fancyfoot[C]{\thepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\pair}[ 2]{\begin{bmatrix} #1 \\ #2 \end{bmatrix}}
+\newcommand{\hpair}[ 2]{\begin{bmatrix} #1 & #2 \end{bmatrix}}
+
+\newcommand{\abs}[ 1]{\left\lvert #1 \right\rvert}
+\newcommand{\norm}[ 1]{\left\lVert #1 \right\rVert}
+
+\newcommand{\vect}[ 1]{\boldsymbol{#1}}
+
+\newcommand{\Zero}{\vect{O}}
+\newcommand{\Identity}{\vect{I}}
+\newcommand{\Jacobian}{\vect{J}}
+\newcommand{\Hessian}[ 1]{\vect{H}_{#1}}
+
+\newcommand{\Integer}{\mathbb{Z}}
+\newcommand{\Real}{\mathbb{R}}
+\newcommand{\Complex}{\mathbb{C}}
+
+\setlength{\abovedisplayskip}{8pt}
+\setlength{\belowdisplayskip}{8pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{enumerate}
+    \item Implement the 2D Newton's method and compute the roots of the following equations:
+    \begin{equation*}
+        \begin{cases}
+            f(x, y) & \equiv x^2 + y^2 - 9  = 0,      \\
+            g(x, y) & \equiv x^2 - 3xy + y^2 - 9 = 0.
+        \end{cases}
+    \end{equation*}
+\end{enumerate}
+
+設 $\pair{x^\ast}{y^\ast} = \pair{x+h}{y+k}$ 為 $f(x, y) = g(x, y) = 0$ 的解，則
+\begin{align}
+    \pair{0}{0}
+        =   \pair{f(x^\ast, y^\ast)}{g(x^\ast, y^\ast)}
+        &=  \pair{f(x+h, y+k)}{g(x+h, y+k)}
+    \approx    \pair{f(x,y)}{g(x,y)} +
+                    \begin{bmatrix}
+                        f_x & f_y \\
+                        g_x & g_y \\
+                    \end{bmatrix}
+                    \pair{h}{k}
+    \\
+    &=  \pair{f(x,y)}{g(x,y)} + \Jacobian(x, y) \pair{h}{k}
+    \\
+    \Rightarrow \Jacobian(x, y) \pair{h}{k}
+    &=    -\pair{f(x,y)}{g(x,y)}
+    \\
+    \label{eq:jacobian_inverse}
+    \pair{h}{k} &= -\Jacobian^{-1}(x, y) \pair{f(x, y)}{g(x, y)}
+        && \text{左右式同乘以 $\Jacobian^{-1}(x, y)$}
+\end{align}
+
+令 $
+\Jacobian(x_n, y_n)
+    =   \begin{bmatrix}
+            f_x(x_n, y_n) & f_y(x_n, y_n) \\
+            g_x(x_n, y_n) & g_y(x_n, y_n) \\
+        \end{bmatrix}
+    =   \begin{bmatrix}
+            a & b \\
+            c & d \\
+        \end{bmatrix}.
+$
+
+假設 $\pair{x_n}{y_n}$ 是當前的解，$\pair{x_{n+1}}{y_{n+1}} = \pair{x+h}{y+k}$ 是下一次的解，則
+\begin{align}
+    \pair{x_{n+1}}{y_{n+1}}
+    &=  \pair{x_n + h_n}{y_n + k_n}
+    =   \pair{x_n}{y_n}
+        +   \pair{h_n}{k_n}
+    \\
+    \label{eq:newton_recurrence}
+    &=  \pair{x_n}{y_n}
+        -   \Jacobian^{-1}(x_n, y_n) \pair{f(x_n, y_n)}{g(x_n, y_n)}
+        &&  \text{帶入 \autoref{eq:jacobian_inverse}}
+    \\
+    &=  \pair{x_n}{y_n}
+        -   \frac{1}{ad - bc}
+            \begin{bmatrix}
+                d  & -b \\
+                -c & a  \\
+            \end{bmatrix}
+            \pair{f(x, y)}{g(x, y)}
+    \\
+    &=  \pair{x_n}{y_n}
+        +   \frac{1}{ad - bc}
+            \pair{-d \cdot f(x, y) + b \cdot g(x, y)}
+                {c \cdot f(x, y) - a \cdot g(x, y)}
+\end{align}
+
+並且誤差為
+\begin{equation}
+    \norm{\overrightarrow{e_{n+1}}}_2
+    =  \norm{\pair{x_{n+1} - x_n}{y_{n+1} - y_n}}_2
+    =   \norm{\pair{h_n}{k_n}}_2
+    =   \sqrt{h_n^2 + k_n^2}
+\end{equation}
+
+\begin{enumerate}[resume*]
+    \item[ 1.]
+    \begin{enumerate}[series=q1]
+        \item Use initial solution $[ 2,  1]$ and compute $\hpair{x}{y}^{(i)}$, $i = 1,  2,  3 \dots$
+    \end{enumerate}
+\end{enumerate}
+
+\begin{center}
+    \begin{tabular}{crrr}
+        \renewcommand{\arraystretch}{1.2}
+        $i$ & \multicolumn{1}{c}{$x_n$} & \multicolumn{1}{c}{$y_n$} & \multicolumn{1}{c}{$e_n$} \\
+        \hline
+        0 & $200000000$ &  $100000000$ &               \\
+        \hline
+        1 & $400000000$ & $-100000000$ & $2.828427125$ \\
+        2 & $3.200000000$ & $-0.200000000$ & $1.131370850$ \\
+        3 & $311764706$ & $-011764706$ & $0.266204906$ \\
+        4 & $300045777$ & $-000045777$ & $016573068$ \\
+        5 & $300000001$ & $-000000001$ & $000064738$ \\
+        6 & $300000000$ &  $000000000$ & $000000001$ \\
+        \hline
+        7 & $300000000$ &  $000000000$ & $000000000$ \\
+          &               & \multicolumn{1}{c}{$\vdots$} & \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\begin{enumerate}[resume*]
+    \item[ 1.]
+    \begin{enumerate}[resume=q1]
+        \item For $x = -5$ to $5$ and $y = -5$ to $5$, list all grid-points $[x_i, y_i]$, which make the computation converges. The gaps in x- and y-axes ar 1. (100 grid-points in total).
+    \end{enumerate}
+\end{enumerate}
+
+對於初始點 $\left\{
+    [x, y] \in \Integer^2
+    \;\middle|\;
+    \abs{x} \neq \abs{y}
+    \wedge
+    -5 \leq x, y \leq 5
+\right\}$ 皆能夠收斂，詳細結果如下：
+
+\begin{itemize}
+    \item 共有 25 個格子點會收斂至 $[ 3, \pm 0]$：
+    \begin{align*}
+        \Bigl\{
+            &   [ 1,  0], [ 2,  0], [ 2, -1], [ 2,  1], [ 3, -2], [ 3, -1], [ 3,  0], [ 3,  1], [ 3,  2],\\
+            &   [ 4, -3], [ 4, -2], [ 4, -1], [ 4,  0], [ 4,  1], [ 4,  2], [ 4,  3], [ 5, -4],\\
+            &   [ 5, -3], [ 5, -2], [ 5, -1], [ 5,  0], [ 5,  1], [ 5,  2], [ 5,  3], [ 5,  4]
+        \Bigr\}
+    \end{align*}
+
+    \item 共有 25 個格子點會收斂至 $[\pm 0,  3]$：
+    \begin{align*}
+        \Bigl\{
+            &   [-4,  5], [-3,  4], [-3,  5], [-2,  3], [-2,  4], [-2,  5], [-1,  2], [-1,  3], [-1,  4],\\
+            &   [-1,  5], [ 0,  1], [ 0,  2], [ 0,  3], [ 0,  4], [ 0,  5], [ 1,  2], [ 1,  3],\\
+            &   [ 1,  4], [ 1,  5], [ 2,  3], [ 3,  4], [ 2,  4], [ 2,  5], [ 3,  5], [ 4,  5]
+        \Bigr\}
+    \end{align*}
+
+    \item 共有 25 個格子點會收斂至 $[-3, \pm 0]$：
+    \begin{align*}
+        \Bigl\{
+            &   [-5, -4], [-5, -3], [-5, -2], [-5, -1], [-5,  0], [-5,  1], [-5,  2], [-5,  3], [-5,  4],\\
+            &   [-4, -3], [-4, -2], [-4, -1], [-4,  0], [-4,  1], [-4,  2], [-4,  3], [-3, -2],\\
+            &   [-3, -1], [-3,  0], [-3,  1], [-3,  2], [-2, -1], [-2,  0], [-2,  1], [-1,  0]
+        \Bigr\}
+    \end{align*}
+
+    \item 共有 25 個格子點會收斂至 $[\pm 0, -3]$：
+    \begin{align*}
+        \Bigl\{
+            &   [-4, -5], [-3, -5], [-3, -4], [-2, -5], [-2, -4], [-2, -3], [-1, -5], [-1, -4], [-1, -3],\\
+            &   [-1, -2], [ 0, -5], [ 0, -4], [ 0, -3], [ 0, -2], [ 0, -1], [ 1, -5], [ 1, -4],\\
+            &   [ 1, -3], [ 1, -2], [ 2, -5], [ 2, -4], [ 2, -3], [ 3, -5], [ 3, -4], [ 4, -5]
+        \Bigr\}
+    \end{align*}
+\end{itemize}
+
+
+\begin{enumerate}[resume*]
+    \item[ 1.]
+    \begin{enumerate}[resume=q1]
+        \item If the computation converges, how many iterations are required in order to achieve $\abs{e_n - e_{n-1}} \leq 10^{-6}$? Please use 2-norm to estimate the error.
+    \end{enumerate}
+\end{enumerate}
+
+
+平均需要 $6.2$ 次迭代才能使 $\abs{e_n - e_{n-1}} \leq 10^{-6}$，詳細結果如下：
+
+\begin{itemize}
+    \item 共有 4 個格子點需要 1 次迭代
+    \begin{align*}
+        \Bigl\{ [-3,  0], [ 0, -3], [ 0,  3], [ 3,  0] \Bigr\}
+    \end{align*}
+
+    \item 共有 4 個格子點需要 5 次迭代
+    \begin{align*}
+        \Bigl\{ [-4,  0], [ 0, -4], [ 0,  4], [ 4,  0] \Bigr\}
+    \end{align*}
+
+    \item 共有 48 個格子點需要 6 次迭代
+    \begin{align*}
+        \Bigl\{
+            &   [-5, -2], [-5, -1], [-5,  0], [-5,  1], [-5,  2], [-4, -2], [-4, -1], [-4,  1],\\
+            &   [-4,  2], [-3, -1], [-3,  1], [-2, -5], [-2, -4], [-2,  0], [-2,  4], [-2,  5],\\
+            &   [-1, -5], [-1, -4], [-1, -3], [-1,  3], [-1,  4], [-1,  5], [ 0, -5], [ 0, -2],\\
+            &   [ 0,  2], [ 0,  5], [ 1, -5], [ 1, -4], [ 1, -3], [ 1,  3], [ 1,  4], [ 1,  5],\\
+            &   [ 2, -5], [ 2, -4], [ 2,  0], [ 2,  4], [ 2,  5], [ 3, -1], [ 3,  1], [ 4, -2],\\
+            &   [ 4, -1], [ 4,  1], [ 4,  2], [ 5, -2], [ 5, -1], [ 5,  0], [ 5,  1], [ 5,  2]
+        \Bigr\}
+    \end{align*}
+
+    \item 共有 44 個格子點需要 7 次迭代
+    \begin{align*}
+        \Bigl\{
+            &   [-5, -4], [-5, -3], [-5,  3], [-5,  4], [-4, -5], [-4, -3], [-4,  3], [-4,  5], [-3, -5],\\
+            &   [-3, -4], [-3, -2], [-3,  2], [-3,  4], [-3,  5], [-2, -3], [-2, -1], [-2,  1], [-2,  3],\\
+            &   [-1, -2], [-1,  0], [-1,  2], [ 0, -1], [ 0,  1], [ 1, -2], [ 1,  0], [ 1,  2], [ 2, -3],\\
+            &   [ 2, -1], [ 2,  1], [ 2,  3], [ 3, -5], [ 3, -4], [ 3, -2], [ 3,  2], [ 3,  4], [ 3,  5],\\
+            &   [ 4, -5], [ 4, -3], [ 4,  3], [ 4,  5], [ 5, -4], [ 5, -3], [ 5,  3], [ 5,  4]
+        \Bigr\}
+    \end{align*}
+\end{itemize}
+
+\begin{enumerate}[resume*]
+    \item[ 1.]
+    \begin{enumerate}[resume=q1]
+        \item For those initial guesses, which leads to divergence, add small perturbations to the initial guess and run the program again. Will the modified initial guess lead the computation to converge?
+    \end{enumerate}
+\end{enumerate}
+
+對於初始點 $\left\{
+    [x, y] \in \Integer^2
+    \;\middle|\;
+    \abs{x} = \abs{y}
+\right\}$ 皆會發散，而加上微小擾動後能夠收斂。
+
+\begin{enumerate}[resume*]
+    \item Draw the graphs of $f(x, y)$ and $g(x, y)$ by using any graphics tools, for example \textit{gnuplot}. Draw the path of a convergence computation by linking $[x_i, y_i]$. Draw the path of a divergence computation.
+\end{enumerate}
+
+下圖（\autoref{fig:fg}）為 $f(x, y) = 0$ 與 $g(x, y) = 0$ 的圖形。
+其中，青色折線段為初始點 $[2, 1]$ 的收斂路徑；橘色折線段為初始點 $[-2, 2]$ 的發散路徑，不過加上了微小擾動（ $[-0.5, 0.5]$ 間的隨機值）後，便能夠收斂（綠色折線段）。
+
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[width=0.9\textwidth]{images/fg.png}
+        \caption{$f(x, y) = 0$ 與 $g(x, y) = 0$ 的圖形與收斂、發散路徑範例}
+        \label{fig:fg}
+    \end{center}
+\end{figure}
+
+\begin{enumerate}[resume*]
+    \item Show the areas which contains initial guesses leading the Newton's method to convergence and divergence. (by using the grid-points)
+\end{enumerate}
+
+當 $\abs{x} \neq \abs{y}$ 時，皆能夠收斂；當 $\abs{x} = \abs{y}$ 時，皆會發散。
+我發現，當初始點 $(x, y)$ 能收斂時，會收斂至離他最近的根。
+即若 $\abs{x} < \abs{y}$，則會收斂至 $\left[0, 3 \cdot \dfrac{x}{\abs{x}}\right]$；
+若 $\abs{x} > \abs{y}$，則會收斂至 $\left[ 3 \cdot \dfrac{x}{\abs{x}}, 0\right]$。
+結果如 \autoref{fig:converge_roots} 所示。
+而 \autoref{fig:converge_iterations_count} 呈現了每個初始點收斂到根所需的迭代次數。
+
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{images/converge_roots.png}
+        \caption{初始點收斂到的根}
+        \label{fig:converge_roots}
+    \end{center}
+\end{figure}
+
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{images/converge_iterations_count.png}
+        \caption{初始點收斂到根所需的迭代次數}
+        \label{fig:converge_iterations_count}
+    \end{center}
+\end{figure}
+
+\clearpage
+
+\begin{enumerate}[resume*]
+    \item Try your best to explain the convergence conditions for computing the roots.
+\end{enumerate}
+
+
+由牛頓法迭代公式 \autoref{eq:newton_recurrence} 可知，若牛頓法要收斂，則 $\Jacobian(x_n, y_n)$ 必須是非奇異矩陣，即 $\det(\Jacobian) \neq 0$。
+
+\begin{corollary}
+    $\Jacobian(x_0, y_0)$ 為奇異矩陣，若且唯若 $f(x, y)$ 與 $g(x, y)$ 在點 $[x_0, y_0]$ 的梯度向量平行。
+\end{corollary}
+
+\begin{proof}
+    \textbf{(充分性)}  
+    若 $\nabla f(x_0, y_0) \parallel \nabla g(x_0, y_0)$，則存在一個非零常數 $c$，使得
+    \begin{equation}
+        \nabla g(x_0, y_0) = c \, \nabla f(x_0, y_0)
+        \quad \Rightarrow \quad
+        \begin{cases}
+            g_x(x_0, y_0) = c \, f_x(x_0, y_0), \\
+            g_y(x_0, y_0) = c \, f_y(x_0, y_0).
+        \end{cases}
+    \end{equation}
+    因此
+    \begin{align}
+        \det(\Jacobian(x_0, y_0))
+        &=  \begin{vmatrix}
+                f_x(x_0, y_0) & f_y(x_0, y_0) \\
+                g_x(x_0, y_0) & g_y(x_0, y_0)
+            \end{vmatrix}
+        \\
+        &=  f_x(x_0, y_0) \cdot g_y(x_0, y_0) - f_y(x_0, y_0) \cdot g_x(x_0, y_0)
+        \\
+        &=  f_x(x_0, y_0) \cdot \left[ c \cdot f_y(x_0, y_0) \right]
+            -   f_y(x_0, y_0) \cdot \left[ c \cdot f_x(x_0, y_0) \right]
+        \\
+        &=  0.
+    \end{align}
+    故若 $\nabla f$ 與 $\nabla g$ 平行，則 $\Jacobian(x_0, y_0)$ 為奇異矩陣。
+
+    \vspace{1em}
+    \textbf{(必要性)}  
+    反之，若 $\Jacobian(x_0, y_0)$ 為奇異矩陣，則
+    \begin{equation}
+        \det(\Jacobian(x_0, y_0))
+        = f_x(x_0, y_0) \cdot g_y(x_0, y_0) - f_y(x_0, y_0) \cdot g_x(x_0, y_0) = 0.
+    \end{equation}
+    由此得
+    \begin{equation}
+        f_x(x_0, y_0) \cdot g_y(x_0, y_0) = f_y(x_0, y_0) \cdot g_x(x_0, y_0).
+    \end{equation}
+    若 $f_x, f_y \neq 0$，則存在常數 $c$ 使得
+    \begin{align}
+        &   \frac{g_x(x_0, y_0)}{f_x(x_0, y_0)} = \frac{g_y(x_0, y_0)}{f_y(x_0, y_0)} = c,
+            \quad \Rightarrow \quad
+            \begin{cases}
+                g_x(x_0, y_0) = c \cdot f_x(x_0, y_0),\\
+                g_y(x_0, y_0) = c \cdot f_y(x_0, y_0).
+            \end{cases}
+        \\
+        &   \therefore
+        \nabla g(x_0, y_0) = c \, \nabla f(x_0, y_0),
+    \end{align}
+    即 $\nabla f(x_0, y_0)$ 與 $\nabla g(x_0, y_0)$ 平行。
+
+    \vspace{1em}
+    綜上所述，得證：$\Jacobian(x_0, y_0)$ 為奇異矩陣 $ \iff \nabla f(x_0, y_0) \parallel \nabla g(x_0, y_0)$。
+\end{proof}
+
+由此可知，猜測的初始點應該避開會讓 $\nabla f(x, y)$ 與 $\nabla g(x, y)$ 平行的點，才能使牛頓法收斂。
+
+\begin{enumerate}[resume*]
+    \item \textbf{Demo your programs in Lab503 two weeks later.} Print the results on A4 size papers. You should annotate the results and write your own opinions, comments, and conjectures on them. Please staple your papers and hand in the papers when you demo your programs.
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
